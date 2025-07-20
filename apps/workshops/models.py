@@ -187,5 +187,4 @@ class Enrollment(models.Model):
             self.user.add_xp(self.workshop.xp_reward)
             
             # Add to completed workshops (many-to-many relation)
-            if hasattr(self.user, 'completed_workshops'):
-                self.user.completed_workshops.add(self.workshop)
+            self.user.completed_workshops.add(self.workshop)
