@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Cadastro - Trilha Gamificada{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-20">
+    <div class="max-w-md mx-auto bg-white rounded-3xl p-8 shadow-xl">
+        <h2 class="text-3xl font-bold text-center mb-8">Criar Conta</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="w-full bg-gradient-to-r from-primary to-accent text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all">
+                <i class="fas fa-rocket mr-2"></i>
+                Começar Minha Jornada
+            </button>
+        </form>
+        
+        <div class="text-center mt-6">
+            <p class="text-gray-600">
+                Já tem uma conta? 
+                <a href="{% url 'users:login' %}" class="text-primary font-semibold hover:underline">
+                    Faça login
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

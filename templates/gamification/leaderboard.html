@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Ranking - Trilha Gamificada{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-20">
+    <h1 class="text-4xl font-bold text-center mb-12">Ranking dos Inovadores</h1>
+    
+    <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+        {% for user in users %}
+        <div class="flex items-center justify-between p-6 border-b border-gray-100 last:border-b-0">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center justify-center w-12 h-12 rounded-2xl font-bold text-lg {% if forloop.counter == 1 %}bg-gradient-to-r from-yellow-400 to-yellow-600 text-white{% elif forloop.counter == 2 %}bg-gradient-to-r from-gray-300 to-gray-500 text-white{% elif forloop.counter == 3 %}bg-gradient-to-r from-orange-400 to-orange-600 text-white{% else %}bg-gray-100 text-gray-600{% endif %}">
+                    #{{ forloop.counter }}
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900">{{ user.get_full_name|default:user.username }}</h3>
+                    <p class="text-sm text-gray-600">{{ user.department|default:"CEPUERJ" }}</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <div class="text-2xl font-bold text-primary">{{ user.total_xp }}</div>
+                <div class="text-xs text-gray-500">XP Total</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if user_position %}
+    <div class="text-center mt-8">
+        <p class="text-gray-600">
+            Você está em <span class="font-bold text-primary">#{{ user_position }}</span> no ranking geral
+        </p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
