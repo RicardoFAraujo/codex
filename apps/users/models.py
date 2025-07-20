@@ -21,6 +21,13 @@ class User(AbstractUser):
     # Profile
     avatar = models.ImageField('Avatar', upload_to='avatars/', blank=True, null=True)
     bio = models.TextField('Biografia', blank=True, max_length=500)
+
+    # Completed workshops relation
+    completed_workshops = models.ManyToManyField(
+        "workshops.Workshop",
+        related_name="completed_by_users",
+        blank=True,
+    )
     
     # Timestamps
     created_at = models.DateTimeField('Criado em', auto_now_add=True)
