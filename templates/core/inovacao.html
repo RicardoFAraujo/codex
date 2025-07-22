@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Trilha de Inovacao - CEPUERJ{% endblock %}
+
+{% block content %}
+<nav class="bg-white shadow-md">
+    <div class="container mx-auto flex items-center justify-between p-4">
+        <a href="{% url 'core:inovacao' %}" class="flex items-center space-x-2">
+            <img src="https://www.cepuerj.uerj.br/asset/img/logo-slogan.png" alt="CEPUERJ" class="h-10">
+        </a>
+        <div class="space-x-6 hidden md:flex">
+            <a href="#workshops" class="text-gray-700 font-semibold hover:text-primary"><i class="fas fa-lightbulb mr-1"></i>Workshops</a>
+            <a href="#contato" class="text-gray-700 font-semibold hover:text-primary"><i class="fas fa-envelope mr-1"></i>Contato</a>
+        </div>
+    </div>
+</nav>
+
+<header class="bg-primary text-white text-center py-20">
+    <div class="container mx-auto px-4">
+        <h1 class="text-5xl font-extrabold mb-4">Trilha de Inovação CEPUERJ</h1>
+        <p class="text-xl max-w-2xl mx-auto">Incentivando a inovação e a colaboração entre os colaboradores.</p>
+    </div>
+</header>
+
+<section id="workshops" class="container mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold text-center mb-12">Workshops e Minicursos</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for workshop in workshops %}
+        <div class="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col">
+            <div class="p-6 flex-1">
+                <div class="flex items-center mb-3">
+                    <i class="{{ workshop.category.icon }} text-secondary text-2xl mr-3"></i>
+                    <h3 class="text-xl font-bold">{{ workshop.title }}</h3>
+                </div>
+                <p class="text-gray-600 mb-2">{{ workshop.subtitle }}</p>
+                <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+                    {% for highlight in workshop.highlights %}
+                    <li>{{ highlight }}</li>
+                    {% endfor %}
+                </ul>
+                <span class="font-semibold"><i class="fas fa-clock mr-1"></i>{{ workshop.duration }}</span>
+            </div>
+            {% if workshop.format == 'hands_on' %}
+            <span class="bg-accent text-white px-4 py-2 text-sm text-center">Atividade prática</span>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p class="text-center col-span-3">Nenhum workshop disponível no momento.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<footer id="contato" class="bg-gray-100 text-center py-8">
+    <p class="text-gray-600">&copy; {{ year }} CEPUERJ - Trilha de Inovação</p>
+</footer>
+{% endblock %}

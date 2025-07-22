@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 from apps.workshops.models import Workshop
 from apps.gamification.models import Badge, Level
 
@@ -44,5 +45,16 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         
         # Recent achievements
         context['recent_badges'] = user.earned_badges.all()[:3]
-        
+
+        return context
+
+
+class InovacaoView(TemplateView):
+    """Página da Trilha de Inovação"""
+    template_name = 'core/inovacao.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['workshops'] = Workshop.objects.filter(is_active=True)
+        context['year'] = timezone.now().year
         return context
